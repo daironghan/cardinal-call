@@ -1,0 +1,23 @@
+[
+  {
+    "title": "American Robin",
+    "scientific": "Turdus Migratorius",
+    "recordingId": "XC999808",
+    "type": "song",
+    "audioFilePath": "BirdCalls/XC999808-AmericanRobin-TurdusMigratorius-song.mp3"
+  },
+  {
+    "title": "Oak Titmouse",
+    "scientific": "Baeolophus Inornatus",
+    "recordingId": "XC794296",
+    "type": "song",
+    "audioFilePath": "BirdCalls/XC794296-OakTitmouse-BaeolophusInornatus-song.mp3"
+  },
+  {
+    "title": "Anna's Hummingbird",
+    "scientific": "Calypte Anna",
+    "recordingId": "XC860679",
+    "type": "song",
+    "audioFilePath": "BirdCalls/XC860679-Anna'sHummingbird-CalypteAnna-song.wav"
+  }
+]
