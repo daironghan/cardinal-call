@@ -8,57 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var matcher = BirdMatcher()
-    @State private var isListening = false
-
-    var matchedBird: Bird? {
-        BirdDatabase.shared.bird(for: matcher.matchResult?.shazamID)
-    }
-
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 20) {
-                Text(isListening ? "Listening..." : "")
-                    .font(.title2)
-
-                Button(action: {
-                    isListening ? matcher.stopListening() : matcher.startListening()
-                    isListening.toggle()
-                }) {
-                    Text(isListening ? "Stop" : "Start")
-                        .font(.title)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(isListening ? Color.red : Color.green)
-                        .foregroundColor(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
+        TabView {
+            ExploreView()
+                .tabItem {
+                    Label("Explore", systemImage: "binoculars.fill")
                 }
-                .padding()
-
-                if let bird = matchedBird {
-                    NavigationLink(destination: BirdInfoView(bird: bird)) {
-                        VStack {
-                            Text("Matched Bird:")
-                                .font(.headline)
-                            Text(bird.name)
-                                .font(.title)
-                                .bold()
-                        }
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                    }
-                } else if !isListening {
-                    Text("No match yet.")
-                        .foregroundColor(.gray)
+            RecordView()
+                .tabItem {
+                    Label("Record", systemImage: "mic.fill")
                 }
-            }
-            .padding()
-            .navigationTitle("CardinalCall")
+
+            HistoryView()
+                .tabItem {
+                    Label("History", systemImage: "clock.fill")
+                }
+
+
         }
     }
-
 }
 
 

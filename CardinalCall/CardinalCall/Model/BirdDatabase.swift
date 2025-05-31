@@ -31,4 +31,8 @@ class BirdDatabase: ObservableObject {
         guard let id else { return nil }
         return birds[id]
     }
+    
+    var allBirds: [Bird] {
+        Array(birds.values)
+    }
 }
