@@ -1,11 +1,10 @@
 [
   {
-    "title": "Oak Titmouse",
-    "scientific": "Baeolophus Inornatus",
     "id": "XC794296",
-    "imageName": "",
+    "name": "Oak Titmouse",
+    "scientific": "Baeolophus Inornatus",
+    "imageName": "OakTitmouse",
     "habitat": "hey",
     "description": "HEYYY"
   }
 ]
-

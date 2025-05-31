@@ -17,10 +17,10 @@ class BirdDatabase: ObservableObject {
     }
 
     private func loadBirds() {
-        guard let url = Bundle.main.url(forResource: "birds", withExtension: "json"),
+        guard let url = Bundle.main.url(forResource: "Birds", withExtension: "json"),
               let data = try? Data(contentsOf: url),
               let decoded = try? JSONDecoder().decode([Bird].self, from: data) else {
-            print("Failed to load birds.json")
+            print("Failed to load Birds.json")
             return
         }
 

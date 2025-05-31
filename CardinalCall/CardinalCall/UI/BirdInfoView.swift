@@ -1,9 +1,10 @@
 //
-//  BirdInfo.swift
+//  BirdInfoView.swift
 //  CardinalCall
 //
 //  Created by 韓岱融 on 2025/5/30.
 //
+
 import SwiftUI
 
 struct BirdInfoView: View {
@@ -14,8 +15,8 @@ struct BirdInfoView: View {
             if !bird.imageName.isEmpty, let image = UIImage(named: bird.imageName) {
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFit()
-                    .frame(height: 200)
+                    .aspectRatio(contentMode: .fill)
+                    .frame(maxWidth: 200, maxHeight: 200)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
             } else {
                 Rectangle()
