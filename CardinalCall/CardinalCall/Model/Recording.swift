@@ -14,11 +14,16 @@ class Recording: Identifiable {
     var birdID: String
     var birdName: String
     var timestamp: Date
+    var latitude: Double?
+    var longitude: Double?
 
-    init(birdID: String, birdName: String, timestamp: Date = Date()) {
+    init(birdID: String, birdName: String, timestamp: Date = Date(), latitude: Double? = nil, longitude: Double? = nil) {
         self.id = UUID()
         self.birdID = birdID
         self.birdName = birdName
         self.timestamp = timestamp
+        self.latitude = latitude
+        self.longitude = longitude
     }
 }
+

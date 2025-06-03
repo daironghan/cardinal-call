@@ -14,6 +14,8 @@ struct RecordView: View {
     @StateObject private var matcher = BirdMatcher()
     @State private var isListening = false
     @State private var stopTimer: Timer?
+    @StateObject private var locationManager = LocationManager()
+
 
     var matchedBird: Bird? {
         BirdDatabase.shared.bird(for: matcher.matchResult?.shazamID)
@@ -21,13 +23,22 @@ struct RecordView: View {
 
     private func saveMatchIfNeeded() {
         if let bird = matchedBird {
-            
-            let record = Recording(birdID: bird.id, birdName: bird.name)
+            let latitude = locationManager.location?.coordinate.latitude
+            let longitude = locationManager.location?.coordinate.longitude
+
+            let record = Recording(
+                birdID: bird.id,
+                birdName: bird.name,
+                latitude: latitude,
+                longitude: longitude
+            )
             modelContext.insert(record)
-            print("save record \(bird.name)")
+            print("Saved record \(bird.name) @ \(latitude ?? 0), \(longitude ?? 0)")
+        } else {
+            print("No match to save")
         }
-        print("not save record")
     }
+
     
     var body: some View {
         NavigationStack {

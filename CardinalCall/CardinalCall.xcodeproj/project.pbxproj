@@ -10,9 +10,22 @@
 		D0BC465C2DE0F0FF00DD75C2 /* CardinalCall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardinalCall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D047C1CB2DEEBEAB0050A43A /* Exceptions for "CardinalCall" folder in "CardinalCall" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D0BC465B2DE0F0FF00DD75C2 /* CardinalCall */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D0BC465E2DE0F0FF00DD75C2 /* CardinalCall */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D047C1CB2DEEBEAB0050A43A /* Exceptions for "CardinalCall" folder in "CardinalCall" target */,
+			);
 			path = CardinalCall;
 			sourceTree = "<group>";
 		};
@@ -252,7 +265,10 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CardinalCall/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your location to record where bird calls were identified.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app requires microphone access to identify bird calls.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -294,7 +310,10 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CardinalCall/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your location to record where bird calls were identified.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app requires microphone access to identify bird calls.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
