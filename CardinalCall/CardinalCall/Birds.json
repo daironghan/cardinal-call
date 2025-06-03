@@ -1,11 +1,92 @@
 [
   {
+    "id": "XC999808",
+    "name": "American Robin",
+    "scientific": "Turdus migratorius",
+    "imageName": "AmericanRobin",
+    "habitat": "Placeholder habitat",
+    "description": "Common resident throughout campus, nesting in a variety of trees and tall shrubs and on artificial substrates, such as planters and the eaves of buildings. Occasionally seen in flocks from fall through spring.",
+    "info": "https://www.allaboutbirds.org/guide/American_Robin"
+  },
+  {
+    "id": "XC408015",
+    "name": "Chestnut-backed Chickadee",
+    "scientific": "Poecile rufescens",
+    "imageName": "Chestnut-backedChickadee",
+    "habitat": "Placeholder habitat",
+    "description": "Common resident throughout campus, nesting in natural cavities and old woodpecker holes in a variety of trees and habitat types. Territories often adjoin those of the Oak Titmouse, with which the chickadee competes for nest sites and, to some extent, food -- though chickadees tend to forage more often on finer foliage than titmice, which forage more frequently on branches. Heads often look blackish.",
+    "info": "https://www.allaboutbirds.org/guide/Chestnut-backed_Chickadee"
+  },
+  {
+    "id": "XC941857",
+    "name": "White-crowned Sparrow",
+    "scientific": "Zonotrichia leucophrys",
+    "imageName": "White-crownedSparrow",
+    "habitat": "Placeholder habitat",
+    "description": "Common migrant and winter resident virtually throughout campus, occurring in a variety of habitat types but usually found in close proximity to the cover of brush or dense weedy vegetation. Often occurs in flocks with Golden-crowned Sparrows, but less closely tied to shrubs and brushy vegetation and more likely to occur in or near tall grasses and forbs (without nearby brush) than the Golden-crowned. Forages primarily on or near the ground, although in spring flocks forage in the crowns of flowering oaks and eucalyptus.",
+    "info": "https://www.allaboutbirds.org/guide/White-crowned_Sparrow"
+  },
+  {
+    "id": "XC736330",
+    "name": "California Scrub Jay",
+    "scientific": "Aphelocoma californica",
+    "imageName": "CaliforniaScrubJay",
+    "habitat": "Placeholder habitat",
+    "description": "Common resident across campus, especially in oak-dominated areas and neighborhoods with scattered trees and shrubs. Often seen alone or in pairs, these bold and vocal jays are known for their intelligence and for caching food in the ground. Their harsh calls are a familiar sound, and they are frequently observed hopping through understory vegetation or flying between tree canopies.",
+    "info": "https://www.allaboutbirds.org/guide/California_Scrub-Jay/"
+  },
+  {
     "id": "XC794296",
     "name": "Oak Titmouse",
-    "scientific": "Baeolophus Inornatus",
+    "scientific": "Baeolophus inornatus",
     "imageName": "OakTitmouse",
-    "habitat": "hey",
-    "description": "HEYYY",
+    "habitat": "Placeholder habitat",
+    "description": "Common resident throughout campus, nesting in natural cavities and old woodpecker holes. Territories often adjoin those of the Chestnut-backed Chickadee, which see. Oak titmice are usually found in or near oak-dominated areas, being more strictly tied to oaks than the Chestnut-backed Chickadee.",
     "info": "https://www.allaboutbirds.org/guide/Oak_Titmouse"
+  },
+  {
+    "id": "XC649098",
+    "name": "Acorn Woodpecker",
+    "scientific": "Melanerpes formicivorus",
+    "imageName": "AcornWoodpecker",
+    "habitat": "Oak and pine-oak woodlands of western Oregon, California, and the Southwest through Mexico and Central America.",
+    "description": "Common resident virtually wherever there are mature oaks. Social groups establish territories in which they collect acorns and cache them in the limbs and trunks of oaks, palms, eucalyptus, and occasionally the eaves of buildings. Caches are defended against Western Scrub-Jays and other groups of Acorn Woodpeckers. Although populations have declined in surrounding urban areas, those on campus should persist if mature oaks remain available.",
+    "info": "https://www.allaboutbirds.org/guide/Acorn_Woodpecker"
+  },
+  {
+    "id": "XC804601",
+    "name": "Dark-eyed Junco",
+    "scientific": "Junco hyemalis",
+    "imageName": "Dark-eyedJunco",
+    "habitat": "Placeholder habitat",
+    "description": "Uncommon and local summer resident, fairly common and more widespread during migration and in winter. Breeding birds on main campus nest almost exclusively in dense mats of ivy and other vines planted around buildings and court-yards, although the choice of nesting cover may be more diverse in woodland and scrub habitats near the Dish and in the faculty housing area. From fall through spring, flocks (sometimes fairly large in the Arboretum) occur throughout campus.",
+    "info": "https://www.allaboutbirds.org/guide/Dark-eyed_Junco"
+  },
+  {
+    "id": "XC989820",
+    "name": "California Towhee",
+    "scientific": "Melozone crissalis",
+    "imageName": "CaliforniaTowhee",
+    "habitat": "Placeholder habitat",
+    "description": "Common resident in a variety of habitat types virtually throughout campus. More common and widespread than the Spotted Towhee, foraging more frequently in open habitats and farther from cover than the Spotted. Probably the species most frequently parasitized by the Brown-headed Cowbird on campus.",
+    "info": "https://www.allaboutbirds.org/guide/California_Towhee"
+  },
+  {
+    "id": "XC963169",
+    "name": "Bewick's Wren",
+    "scientific": "Thryomanes bewickii",
+    "imageName": "Bewick'sWren",
+    "habitat": "Placeholder habitat",
+    "description": "Uncommon to locally common resident virtually throughout campus, occurring primarily in dense patches of brushy vegetation. Distributed fairly sparsely on most of main campus but more common and widespread in woodland and scrub habitats near the Dish and around faculty housing.",
+    "info": "https://www.allaboutbirds.org/guide/Bewicks_Wren"
+  },
+  {
+    "id": "XC860679",
+    "name": "Anna's Hummingbird",
+    "scientific": "Calypte anna",
+    "imageName": "Anna'sHummingbird",
+    "habitat": "Placeholder habitat",
+    "description": "Abundant throughout campus, nesting in virtually any type of tree or tall shrub, even in areas with heavy human activity. Nesting occurs throughout the winter, spring, and summer, peaking in late winter and spring. Concentrations may be present at flowering trees, such as eucalyptus.",
+    "info": "https://www.allaboutbirds.org/guide/Annas_Hummingbird"
   }
 ]

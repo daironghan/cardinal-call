@@ -42,13 +42,30 @@ func loadAudioBuffer(from url: URL) throws -> AVAudioPCMBuffer {
     return outputBuffer
 }
 
+func splitCamelCase(_ text: String) -> String {
+    return text.replacingOccurrences(
+        of: "([a-z])([A-Z])",
+        with: "$1 $2",
+        options: .regularExpression
+    )
+}
+
 func extractMetadata(from filename: String) -> (title: String, id: String) {
-    let name = filename.replacingOccurrences(of: ".wav", with: "").replacingOccurrences(of: ".mp3", with: "")
-    let parts = name.split(separator: "-")
-    let id = String(parts.first ?? "Unknown")
-    let titleParts = parts.dropFirst().prefix(while: { !$0.lowercased().contains("song") && !$0.lowercased().contains("call") })
-    let spaced = titleParts.joined(separator: " ").replacingOccurrences(of: "([a-z])([A-Z])", with: "$1 $2", options: .regularExpression)
-    return (spaced, id)
+    let base = filename
+        .replacingOccurrences(of: ".wav", with: "")
+        .replacingOccurrences(of: ".mp3", with: "")
+    
+    let parts = base.split(separator: "_")
+    
+    guard parts.count >= 4 else {
+        return ("Unknown Title", "UnknownID")
+    }
+    
+    let id = String(parts[0]) // e.g., "XC941857"
+    let commonRaw = String(parts[1]) // e.g., "White-crownedSparrow"
+    let title = splitCamelCase(commonRaw.replacingOccurrences(of: "-", with: " "))
+    
+    return (title, id)
 }
 
 func generateCatalog() throws {
@@ -86,5 +103,6 @@ do {
 } catch {
     print("Error: \(error.localizedDescription)")
 }
+
 
 

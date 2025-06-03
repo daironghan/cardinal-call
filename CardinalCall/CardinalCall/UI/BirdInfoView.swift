@@ -29,10 +29,14 @@ struct BirdInfoView: View {
             Text(bird.name)
                 .font(.largeTitle)
                 .bold()
-
-            Text("Habitat: \(bird.habitat)")
-                .font(.headline)
+            
+            Text("\(bird.scientific)")
+                .font(.title2)
                 .foregroundColor(.secondary)
+            
+//            Text("Habitat: \(bird.habitat)")
+//                .font(.headline)
+//                .foregroundColor(.secondary)
 
             Text(bird.description)
                 .font(.body)

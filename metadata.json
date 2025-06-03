@@ -1,23 +1,92 @@
 [
   {
-    "title": "American Robin",
-    "scientific": "Turdus Migratorius",
-    "recordingId": "XC999808",
-    "type": "song",
-    "audioFilePath": "BirdCalls/XC999808-AmericanRobin-TurdusMigratorius-song.mp3"
+    "id": "XC999808",
+    "name": "American Robin",
+    "scientific": "Turdus migratorius",
+    "imageName": "AmericanRobin",
+    "habitat": "Placeholder habitat",
+    "description": "Placeholder description",
+    "info": "https://www.allaboutbirds.org/guide/American_Robin"
   },
   {
-    "title": "Oak Titmouse",
-    "scientific": "Baeolophus Inornatus",
-    "recordingId": "XC794296",
-    "type": "song",
-    "audioFilePath": "BirdCalls/XC794296-OakTitmouse-BaeolophusInornatus-song.mp3"
+    "id": "XC408015",
+    "name": "Chestnut backed Chickadee",
+    "scientific": "Poecile rufescens",
+    "imageName": "ChestnutbackedChickadee",
+    "habitat": "Placeholder habitat",
+    "description": "Placeholder description",
+    "info": "https://www.allaboutbirds.org/guide/Chestnut_backed_Chickadee"
   },
   {
-    "title": "Anna's Hummingbird",
-    "scientific": "Calypte Anna",
-    "recordingId": "XC860679",
-    "type": "song",
-    "audioFilePath": "BirdCalls/XC860679-Anna'sHummingbird-CalypteAnna-song.wav"
+    "id": "XC941857",
+    "name": "White crowned Sparrow",
+    "scientific": "Zonotrichia leucophrys",
+    "imageName": "WhitecrownedSparrow",
+    "habitat": "Placeholder habitat",
+    "description": "Placeholder description",
+    "info": "https://www.allaboutbirds.org/guide/White_crowned_Sparrow"
+  },
+  {
+    "id": "XC736330",
+    "name": "California Scrub Jay",
+    "scientific": "Aphelocoma californica",
+    "imageName": "CaliforniaScrubJay",
+    "habitat": "Placeholder habitat",
+    "description": "Placeholder description",
+    "info": "https://www.allaboutbirds.org/guide/California_Scrub_Jay"
+  },
+  {
+    "id": "XC794296",
+    "name": "Oak Titmouse",
+    "scientific": "Baeolophus inornatus",
+    "imageName": "OakTitmouse",
+    "habitat": "Placeholder habitat",
+    "description": "Placeholder description",
+    "info": "https://www.allaboutbirds.org/guide/Oak_Titmouse"
+  },
+  {
+    "id": "XC649098",
+    "name": "Acorn Woodpecker",
+    "scientific": "Melanerpes formicivorus",
+    "imageName": "AcornWoodpecker",
+    "habitat": "Placeholder habitat",
+    "description": "Placeholder description",
+    "info": "https://www.allaboutbirds.org/guide/Acorn_Woodpecker"
+  },
+  {
+    "id": "XC804601",
+    "name": "Dark eyed Junco",
+    "scientific": "Junco hyemalis",
+    "imageName": "DarkeyedJunco",
+    "habitat": "Placeholder habitat",
+    "description": "Placeholder description",
+    "info": "https://www.allaboutbirds.org/guide/Dark_eyed_Junco"
+  },
+  {
+    "id": "XC989820",
+    "name": "California Towhee",
+    "scientific": "Melozone crissalis",
+    "imageName": "CaliforniaTowhee",
+    "habitat": "Placeholder habitat",
+    "description": "Placeholder description",
+    "info": "https://www.allaboutbirds.org/guide/California_Towhee"
+  },
+  {
+    "id": "XC963169",
+    "name": "Bewick's Wren",
+    "scientific": "Thryomanes bewickii",
+    "imageName": "Bewick'sWren",
+    "habitat": "Placeholder habitat",
+    "description": "Placeholder description",
+    "info": "https://www.allaboutbirds.org/guide/Bewick's_Wren"
+  },
+  {
+    "id": "XC860679",
+    "name": "Anna's Hummingbird",
+    "scientific": "Calypte anna",
+    "imageName": "Anna'sHummingbird",
+    "habitat": "Placeholder habitat",
+    "description": "Placeholder description",
+    "info": "https://www.allaboutbirds.org/guide/Anna's_Hummingbird"
   }
 ]
