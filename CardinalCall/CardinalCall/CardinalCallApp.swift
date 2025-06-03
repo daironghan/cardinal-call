@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct CardinalCallApp: App {
@@ -13,5 +14,6 @@ struct CardinalCallApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: Recording.self)
     }
 }

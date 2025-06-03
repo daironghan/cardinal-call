@@ -6,15 +6,28 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RecordView: View {
+    @Environment(\.modelContext) private var modelContext
+    
     @StateObject private var matcher = BirdMatcher()
     @State private var isListening = false
+    @State private var stopTimer: Timer?
 
     var matchedBird: Bird? {
         BirdDatabase.shared.bird(for: matcher.matchResult?.shazamID)
     }
 
+    private func saveMatchIfNeeded() {
+        if let bird = matchedBird {
+            
+            let record = Recording(birdID: bird.id, birdName: bird.name)
+            modelContext.insert(record)
+            print("save record \(bird.name)")
+        }
+        print("not save record")
+    }
     
     var body: some View {
         NavigationStack {
@@ -23,7 +36,21 @@ struct RecordView: View {
                     .font(.title2)
 
                 Button(action: {
-                    isListening ? matcher.stopListening() : matcher.startListening()
+                    if isListening {
+                        matcher.stopListening()
+                        stopTimer?.invalidate()
+                        stopTimer = nil
+                        saveMatchIfNeeded()       // Save when stopping
+                        matcher.matchResult = nil
+                    } else {
+                        matcher.startListening()
+                        stopTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { _ in
+                            matcher.stopListening()
+                            saveMatchIfNeeded()   // Save when auto-stopping
+                            isListening = false
+                            matcher.matchResult = nil
+                        }
+                    }
                     isListening.toggle()
                 }) {
                     Text(isListening ? "Stop" : "Start")
@@ -50,7 +77,7 @@ struct RecordView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                 } else if !isListening {
-                    Text("No match yet.")
+                    Text("Start recording.")
                         .foregroundColor(.gray)
                 }
             }
