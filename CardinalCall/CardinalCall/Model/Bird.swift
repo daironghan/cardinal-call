@@ -13,4 +13,5 @@ struct Bird: Identifiable, Codable {
     var imageName: String
     var habitat: String
     var description: String
+    var info: String
 }

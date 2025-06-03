@@ -36,7 +36,24 @@ struct BirdInfoView: View {
 
             Text(bird.description)
                 .font(.body)
-                .padding()
+                .padding(.horizontal)
+
+            if let url = URL(string: bird.info) {
+                Button(action: {
+                    if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == nil {
+                        UIApplication.shared.open(url)
+                    } else {
+                        print("Preview: would open \(url.absoluteString)")
+                    }
+                }) {
+                    Text("Learn more")
+                        .font(.headline)
+                        .foregroundColor(.blue)
+                        .underline()
+                        .padding(.top, 8)
+                }
+            }
+
 
             Spacer()
         }
@@ -52,6 +69,7 @@ struct BirdInfoView: View {
         scientific: "sada",
         imageName: "OakTitmouse", // Add actual image asset name if available
         habitat: "Open woodlands",
-        description: "The Oak Titmouse is a small songbird of western oak woodlands."
+        description: "The Oak Titmouse is a small songbird of western oak woodlands.",
+        info: "https://www.allaboutbirds.org/guide/Oak_Titmouse"
     ))
 }
