@@ -12,10 +12,19 @@ struct ExploreView: View {
 
     var body: some View {
         NavigationStack {
+            Text("Explore birds around Stanford")
+                                .font(.title2).bold()
+                                .foregroundColor(.secondary)
+                                .padding([.top, .horizontal])
+            // Top divider line
+            Rectangle()
+                .frame(maxHeight: 0.5)
+                .foregroundColor(Color(UIColor.separator))
+                .padding(.leading)
             List {
-                ForEach(birds.allBirds.sorted(by: { $0.name < $1.name }), id: \.id) { bird in
+              ForEach(birds.allBirds.sorted(by: { $0.name < $1.name }), id: \.id) { bird in
                     NavigationLink(destination: BirdInfoView(bird: bird)) {
-                        HStack(spacing: 12) {
+                        HStack {
                             if !bird.imageName.isEmpty, let uiImage = UIImage(named: bird.imageName) {
                                 Image(uiImage: uiImage)
                                     .resizable()
@@ -29,15 +38,15 @@ struct ExploreView: View {
                                     .overlay(Text("No Image").font(.caption2).foregroundColor(.gray))
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                             }
-
+                            
                             Text(bird.name)
                                 .font(.headline)
                         }
-                        .padding(.vertical, 4)
                     }
                 }
+                
             }
-            .navigationTitle("Explore birds around Stanford")
+            .listStyle(.plain)
         }
         
     }
