@@ -10,15 +10,32 @@ import SwiftData
 
 struct RecordView: View {
     @Environment(\.modelContext) private var modelContext
-    
     @StateObject private var matcher = BirdMatcher()
-    @State private var isListening = false
-    @State private var stopTimer: Timer?
     @StateObject private var locationManager = LocationManager()
 
+    @State private var isListening = false
+    @State private var didMatch = false
 
     var matchedBird: Bird? {
         BirdDatabase.shared.bird(for: matcher.matchResult?.shazamID)
+    }
+
+    private func startRecording() {
+        matcher.startListening()
+        isListening = true
+        didMatch = false
+    }
+
+    private func stopRecording() {
+        matcher.stopListening()
+        isListening = false
+
+        if matchedBird != nil {
+            saveMatchIfNeeded()
+            didMatch = true
+        } else {
+            matcher.matchResult = nil
+        }
     }
 
     private func saveMatchIfNeeded() {
@@ -39,42 +56,16 @@ struct RecordView: View {
         }
     }
 
-    
     var body: some View {
         NavigationStack {
-            VStack(spacing: 20) {
-                Text(isListening ? "Listening..." : "")
+            VStack(spacing: 24) {
+                Text(isListening ? "Listening…" :
+                     didMatch ? "Match found! Saved to history." :
+                     "Ready to record")
                     .font(.title2)
+                    .foregroundColor(.secondary)
 
-                Button(action: {
-                    if isListening {
-                        matcher.stopListening()
-                        stopTimer?.invalidate()
-                        stopTimer = nil
-                        saveMatchIfNeeded()       // Save when stopping
-                        matcher.matchResult = nil
-                    } else {
-                        matcher.startListening()
-                        stopTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { _ in
-                            matcher.stopListening()
-                            saveMatchIfNeeded()   // Save when auto-stopping
-                            isListening = false
-                            matcher.matchResult = nil
-                        }
-                    }
-                    isListening.toggle()
-                }) {
-                    Text(isListening ? "Stop" : "Start")
-                        .font(.title)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(isListening ? Color.red : Color.green)
-                        .foregroundColor(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                }
-                .padding()
-
-                if let bird = matchedBird {
+                if let bird = matchedBird, didMatch {
                     NavigationLink(destination: BirdInfoView(bird: bird)) {
                         VStack {
                             Text("Matched Bird:")
@@ -84,21 +75,48 @@ struct RecordView: View {
                                 .bold()
                         }
                         .padding()
+                        .frame(maxWidth: .infinity)
                         .background(Color(.systemGray6))
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
-                } else if !isListening {
-                    Text("Start recording.")
-                        .foregroundColor(.gray)
+
+                    Button("New Recording") {
+                        matcher.matchResult = nil
+                        didMatch = false
+                        isListening = false
+                    }
+                    .font(.title3)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .padding(.top)
+                } else {
+                    Button(action: {
+                        isListening ? stopRecording() : startRecording()
+                    }) {
+                        Text(isListening ? "Stop" : "Start")
+                            .font(.title)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(isListening ? Color.red : Color.green)
+                            .foregroundColor(.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                    }
                 }
             }
             .padding()
         }
+        .onChange(of: matcher.matchResult) {
+            if matchedBird != nil && isListening {
+                stopRecording()
+            }
+        }
     }
-
 }
-
 
 #Preview {
     RecordView()
 }
+

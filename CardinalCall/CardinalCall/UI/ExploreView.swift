@@ -37,7 +37,9 @@ struct ExploreView: View {
                     }
                 }
             }
+            .navigationTitle("Explore birds around Stanford")
         }
+        
     }
 }
 

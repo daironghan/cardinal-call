@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     
@@ -30,5 +31,16 @@ struct ContentView: View {
 
 
 #Preview {
-    ContentView()
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Recording.self, configurations: config)
+
+    // Optional: Seed with a mock Recording
+    let context = container.mainContext
+    let mock = Recording(birdID: "1", birdName: "Mock Bird A")
+    mock.latitude = 37.4
+    mock.longitude = -122.1
+    context.insert(mock)
+
+    return ContentView()
+        .modelContainer(container)
 }

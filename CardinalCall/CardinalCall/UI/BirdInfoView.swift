@@ -27,17 +27,13 @@ struct BirdInfoView: View {
             }
 
             Text(bird.name)
-                .font(.largeTitle)
+                .font(.title)
                 .bold()
             
             Text("\(bird.scientific)")
                 .font(.title2)
                 .foregroundColor(.secondary)
             
-//            Text("Habitat: \(bird.habitat)")
-//                .font(.headline)
-//                .foregroundColor(.secondary)
-
             Text(bird.description)
                 .font(.body)
                 .padding(.horizontal)
@@ -52,7 +48,7 @@ struct BirdInfoView: View {
                 }) {
                     Text("Learn more")
                         .font(.headline)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.secondary)
                         .underline()
                         .padding(.top, 8)
                 }
@@ -62,7 +58,7 @@ struct BirdInfoView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle(bird.name)
+//        .navigationTitle(bird.name)
     }
 }
 
