@@ -19,6 +19,7 @@ struct HistoryView: View {
     @State private var showDatePicker: Bool = false
     @State private var recordingToDelete: Recording?
     @State private var showDeleteConfirmation: Bool = false
+//    @State private var longPressedRecording: Recording?
 
     var filteredRecordings: [Recording] {
         guard startDate <= endDate else { return [] }
@@ -119,13 +120,29 @@ struct HistoryView: View {
                                 Spacer()
                             }
                             .contentShape(Rectangle())
+//                            .background(
+//                                RoundedRectangle(cornerRadius: 8)
+//                                    .fill(longPressedRecording?.id == recording.id ? Color.gray.opacity(0.2) : Color.clear)
+//                            )
                             .onTapGesture {
                                 selectedRecording = recording
                             }
-                            .onLongPressGesture {
-                                recordingToDelete = recording
-                                showDeleteConfirmation = true
+                            .contextMenu {
+                                Button(role: .destructive) {
+                                    recordingToDelete = recording
+                                    showDeleteConfirmation = true
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
                             }
+//                            .onLongPressGesture {
+//                                longPressedRecording = recording
+//                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//                                    recordingToDelete = recording
+//                                    showDeleteConfirmation = true
+//                                    longPressedRecording = nil
+//                                }
+//                            }
                         }
                     }
                     .listStyle(.plain)
