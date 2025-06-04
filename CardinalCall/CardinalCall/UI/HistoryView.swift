@@ -10,53 +10,121 @@ import MapKit
 
 struct HistoryView: View {
     @Query(sort: \Recording.timestamp, order: .reverse) var recordings: [Recording]
+
     @State private var selectedRecording: Recording?
+    @State private var searchText: String = ""
+    @State private var startDate: Date = Calendar.current.date(byAdding: .month, value: -1, to: Date()) ?? Date()
+    @State private var endDate: Date = Date()
+    @State private var showDatePicker: Bool = false
+
+    var filteredRecordings: [Recording] {
+        guard startDate <= endDate else { return [] }
+
+        let adjustedEndDate = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: endDate) ?? endDate
+
+        return recordings.filter { recording in
+            let matchesName = searchText.isEmpty || recording.birdName.localizedCaseInsensitiveContains(searchText)
+            let matchesDate = (startDate...adjustedEndDate).contains(recording.timestamp)
+            return matchesName && matchesDate
+        }
+    }
 
     var body: some View {
         NavigationStack {
-            VStack {
-                Text("Total recordings: \(recordings.count)")
-                    .padding(.top)
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Recording History")
+                    .font(.title3)
+                    .bold()
 
-                List(recordings) { recording in
+                HStack(spacing: 8) {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.gray)
+                        TextField("Search bird name...", text: $searchText)
+                            .textFieldStyle(PlainTextFieldStyle())
+                    }
+                    .padding(8)
+                    .background(Color(.secondarySystemBackground))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+
                     Button {
-                        selectedRecording = recording
+                        withAnimation {
+                            showDatePicker.toggle()
+                        }
                     } label: {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(recording.birdName)
-                                .font(.headline)
-                            Text(recording.timestamp.formatted(date: .abbreviated, time: .shortened))
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                            if let lat = recording.latitude, let lon = recording.longitude {
-                                Text(String(format: "Location: %.4f, %.4f", lat, lon))
-                                    .font(.caption2)
-                                    .foregroundColor(.gray)
-                            } else {
-                                Text("Location: Unknown")
-                                    .font(.caption2)
-                                    .foregroundColor(.gray)
+                        Image(systemName: "calendar")
+                            .font(.title3)
+                            .padding(8)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .accessibilityLabel("Filter by date")
+                }
+
+                if showDatePicker {
+                    HStack {
+                        DatePicker("From", selection: $startDate, displayedComponents: .date)
+                        DatePicker("To", selection: $endDate, in: startDate..., displayedComponents: .date)
+                    }
+                    .font(.caption)
+                    .padding(.horizontal, 4)
+                }
+
+//                Rectangle()
+//                    .frame(height: 0.5)
+//                    .foregroundColor(Color(UIColor.separator))
+
+                if filteredRecordings.isEmpty {
+                    Spacer()
+                    Text("No recordings found.")
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    Spacer()
+                } else {
+                    List(filteredRecordings) { recording in
+                        Button {
+                            selectedRecording = recording
+                        } label: {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(recording.birdName)
+                                    .font(.headline)
+                                Text(recording.timestamp.formatted(date: .abbreviated, time: .shortened))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                if let lat = recording.latitude, let lon = recording.longitude {
+                                    Text(String(format: "Location: %.4f, %.4f", lat, lon))
+                                        .font(.caption2)
+                                        .foregroundColor(.gray)
+                                } else {
+                                    Text("Location: Unknown")
+                                        .font(.caption2)
+                                        .foregroundColor(.gray)
+                                }
                             }
                         }
                     }
+                    .listStyle(.plain)
                 }
             }
-            .navigationTitle("Recording History")
+            .padding()
+
             .sheet(item: $selectedRecording) { recording in
-                if let lat = recording.latitude, let lon = recording.longitude {
-                    RecordingMapView(
-                        coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon),
-                        birdName: recording.birdName
-                    )
-                } else {
-                    Text("No location available for this recording.")
-                        .padding()
+                NavigationStack {
+                    if let lat = recording.latitude, let lon = recording.longitude {
+                        RecordingMapView(
+                            coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon),
+                            birdName: recording.birdName
+                        )
+                        .navigationTitle(recording.birdName)
+                        .navigationBarTitleDisplayMode(.inline)
+                    } else {
+                        Text("No location available for this recording.")
+                            .padding()
+                    }
                 }
             }
         }
     }
 }
-
 
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
@@ -65,8 +133,13 @@ struct HistoryView: View {
     let context = container.mainContext
     let mock = Recording(birdID: "1", birdName: "Mock Bird A")
     mock.latitude = 37.4
-    mock.longitude = -122.1
+    mock.longitude = -128.1
+    
+    let mock2 = Recording(birdID: "1", birdName: "Mock Bird Cat")
+    mock2.latitude = 37.4
+    mock2.longitude = -122.1
     context.insert(mock)
+    context.insert(mock2)
 
     return HistoryView().modelContainer(container)
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BirdInfoView: View {
     let bird: Bird
-
+    
     var body: some View {
         VStack(spacing: 20) {
             if !bird.imageName.isEmpty, let image = UIImage(named: bird.imageName) {

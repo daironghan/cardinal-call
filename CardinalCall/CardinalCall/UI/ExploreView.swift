@@ -9,18 +9,21 @@ import SwiftUI
 
 struct ExploreView: View {
     let birds = BirdDatabase.shared
+    @Namespace private var imageNamespace
+
 
     var body: some View {
         NavigationStack {
-            Text("Explore birds around Stanford")
-                                .font(.title2).bold()
-                                .foregroundColor(.secondary)
-                                .padding([.top, .horizontal])
+            VStack(alignment: .leading) {
+                Text("Explore birds around Stanford")
+                    .font(.title3)
+                    .bold()
+            }
             // Top divider line
             Rectangle()
                 .frame(maxHeight: 0.5)
                 .foregroundColor(Color(UIColor.separator))
-                .padding(.leading)
+  
             List {
               ForEach(birds.allBirds.sorted(by: { $0.name < $1.name }), id: \.id) { bird in
                     NavigationLink(destination: BirdInfoView(bird: bird)) {
@@ -42,12 +45,14 @@ struct ExploreView: View {
                             Text(bird.name)
                                 .font(.headline)
                         }
+
                     }
                 }
                 
             }
             .listStyle(.plain)
         }
+        .padding()
         
     }
 }

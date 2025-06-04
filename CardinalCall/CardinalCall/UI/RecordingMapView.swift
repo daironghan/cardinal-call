@@ -39,3 +39,11 @@ struct RecordingMapView: View {
         }
     }
 }
+
+#Preview {
+    RecordingMapView(
+        coordinate: CLLocationCoordinate2D(latitude: 37.4275, longitude: -122.1697), 
+        birdName: "Oak Titmouse"
+    )
+}
+

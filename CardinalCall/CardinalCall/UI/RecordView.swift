@@ -15,6 +15,7 @@ struct RecordView: View {
 
     @State private var isListening = false
     @State private var didMatch = false
+    @Namespace private var imageNamespace
 
     var matchedBird: Bird? {
         BirdDatabase.shared.bird(for: matcher.matchResult?.shazamID)
@@ -106,8 +107,8 @@ struct RecordView: View {
                     }
                 }
             }
-            .padding()
         }
+        .padding()
         .onChange(of: matcher.matchResult) {
             if matchedBird != nil && isListening {
                 stopRecording()
