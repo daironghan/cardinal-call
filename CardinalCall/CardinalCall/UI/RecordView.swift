@@ -4,7 +4,6 @@
 //
 //  Created by 韓岱融 on 2025/5/31.
 //
-
 import SwiftUI
 import SwiftData
 
@@ -33,7 +32,9 @@ struct RecordView: View {
 
         if matchedBird != nil {
             saveMatchIfNeeded()
-            didMatch = true
+            withAnimation(.spring()) {
+                didMatch = true
+            }
         } else {
             matcher.matchResult = nil
         }
@@ -60,39 +61,44 @@ struct RecordView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 24) {
-                Text(isListening ? "Listening…" :
-                     didMatch ? "Match found! Saved to history." :
-                     "Ready to record")
+                Text(isListening ? "Listening..." :
+                     didMatch ? "Match found and saved!" :
+                     "Ready to listen")
                     .font(.title2)
                     .foregroundColor(.secondary)
+                    .animation(.easeInOut, value: isListening || didMatch)
 
                 if let bird = matchedBird, didMatch {
-                    NavigationLink(destination: BirdInfoView(bird: bird)) {
-                        VStack {
-                            Text("Matched Bird:")
-                                .font(.headline)
-                            Text(bird.name)
-                                .font(.title)
-                                .bold()
+                    VStack(spacing: 16) {
+                        NavigationLink(destination: BirdInfoView(bird: bird)) {
+                            VStack {
+                                Text("Matched Bird:")
+                                    .font(.headline)
+                                Text(bird.name)
+                                    .font(.title)
+                                    .bold()
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .foregroundStyle(.primary)
+                            .background(Color(.secondarySystemBackground))
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
                         }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color(.systemGray6))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                    }
 
-                    Button("New Recording") {
-                        matcher.matchResult = nil
-                        didMatch = false
-                        isListening = false
+                        Button {
+                            withAnimation {
+                                matcher.matchResult = nil
+                                didMatch = false
+                                isListening = false
+                            }
+                        } label: {
+                            Label("New Recording", systemImage: "arrow.counterclockwise")
+                                .font(.subheadline)
+                        }
+                        .buttonStyle(.plain)
+                        .foregroundColor(.secondary)
                     }
-                    .font(.title3)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .padding(.top)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
                 } else {
                     Button(action: {
                         isListening ? stopRecording() : startRecording()
@@ -103,12 +109,12 @@ struct RecordView: View {
                             .frame(maxWidth: .infinity)
                             .background(isListening ? Color.red : Color.green)
                             .foregroundColor(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
                     }
                 }
             }
+            .padding()
         }
-        .padding()
         .onChange(of: matcher.matchResult) {
             if matchedBird != nil && isListening {
                 stopRecording()
@@ -116,6 +122,7 @@ struct RecordView: View {
         }
     }
 }
+
 
 #Preview {
     RecordView()

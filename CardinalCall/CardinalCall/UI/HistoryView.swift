@@ -62,8 +62,26 @@ struct HistoryView: View {
 
                 if showDatePicker {
                     HStack {
-                        DatePicker("From", selection: $startDate, displayedComponents: .date)
-                        DatePicker("To", selection: $endDate, in: startDate..., displayedComponents: .date)
+//                        DatePicker("From", selection: $startDate, displayedComponents: .date)
+//                        DatePicker("To", selection: $endDate, in: startDate..., displayedComponents: .date)
+                        DatePicker("From", selection: Binding(
+                            get: { startDate },
+                            set: { newValue in
+                                withAnimation {
+                                    startDate = newValue
+                                }
+                            }), displayedComponents: .date
+                        )
+
+                        DatePicker("To", selection: Binding(
+                            get: { endDate },
+                            set: { newValue in
+                                withAnimation {
+                                    endDate = newValue
+                                }
+                            }), in: startDate..., displayedComponents: .date
+                        )
+
                     }
                     .font(.caption)
                     .padding(.horizontal, 4)
@@ -103,6 +121,7 @@ struct HistoryView: View {
                         }
                     }
                     .listStyle(.plain)
+                    .animation(.easeInOut(duration: 0.3), value: filteredRecordings)
                 }
             }
             .padding()
@@ -138,8 +157,15 @@ struct HistoryView: View {
     let mock2 = Recording(birdID: "1", birdName: "Mock Bird Cat")
     mock2.latitude = 37.4
     mock2.longitude = -122.1
+    
+    let mock3 = Recording(birdID: "2", birdName: "Mock Bird A")
+    mock3.latitude = 38.4
+    mock3.longitude = -122.1
+
+    
     context.insert(mock)
     context.insert(mock2)
+    context.insert(mock3)
 
     return HistoryView().modelContainer(container)
 }

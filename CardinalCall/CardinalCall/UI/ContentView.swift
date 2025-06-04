@@ -18,7 +18,7 @@ struct ContentView: View {
                 }
             RecordView()
                 .tabItem {
-                    Label("Record", systemImage: "mic.fill")
+                    Label("Listen", systemImage: "mic.fill")
                 }
 
             HistoryView()
@@ -37,8 +37,13 @@ struct ContentView: View {
     let context = container.mainContext
     let mock = Recording(birdID: "1", birdName: "Mock Bird A")
     mock.latitude = 37.4
-    mock.longitude = -122.1
+    mock.longitude = -128.1
+    
+    let mock2 = Recording(birdID: "1", birdName: "Mock Bird Cat")
+    mock2.latitude = 37.4
+    mock2.longitude = -122.1
     context.insert(mock)
+    context.insert(mock2)
 
     return ContentView()
         .modelContainer(container)
