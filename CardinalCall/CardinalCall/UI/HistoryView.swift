@@ -10,12 +10,15 @@ import MapKit
 
 struct HistoryView: View {
     @Query(sort: \Recording.timestamp, order: .reverse) var recordings: [Recording]
+    @Environment(\.modelContext) private var modelContext
 
     @State private var selectedRecording: Recording?
     @State private var searchText: String = ""
     @State private var startDate: Date = Calendar.current.date(byAdding: .month, value: -1, to: Date()) ?? Date()
     @State private var endDate: Date = Date()
     @State private var showDatePicker: Bool = false
+    @State private var recordingToDelete: Recording?
+    @State private var showDeleteConfirmation: Bool = false
 
     var filteredRecordings: [Recording] {
         guard startDate <= endDate else { return [] }
@@ -32,7 +35,7 @@ struct HistoryView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 12) {
-                Text("Recording History")
+                Text("History")
                     .font(.title3)
                     .bold()
 
@@ -87,10 +90,6 @@ struct HistoryView: View {
                     .padding(.horizontal, 4)
                 }
 
-//                Rectangle()
-//                    .frame(height: 0.5)
-//                    .foregroundColor(Color(UIColor.separator))
-
                 if filteredRecordings.isEmpty {
                     Spacer()
                     Text("No recordings found.")
@@ -98,25 +97,33 @@ struct HistoryView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                     Spacer()
                 } else {
-                    List(filteredRecordings) { recording in
-                        Button {
-                            selectedRecording = recording
-                        } label: {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(recording.birdName)
-                                    .font(.headline)
-                                Text(recording.timestamp.formatted(date: .abbreviated, time: .shortened))
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                                if let lat = recording.latitude, let lon = recording.longitude {
-                                    Text(String(format: "Location: %.4f, %.4f", lat, lon))
-                                        .font(.caption2)
-                                        .foregroundColor(.gray)
-                                } else {
-                                    Text("Location: Unknown")
-                                        .font(.caption2)
-                                        .foregroundColor(.gray)
+                    List {
+                        ForEach(filteredRecordings) { recording in
+                            HStack{
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(recording.birdName)
+                                        .font(.headline)
+                                    Text(recording.timestamp.formatted(date: .abbreviated, time: .shortened))
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                    if let lat = recording.latitude, let lon = recording.longitude {
+                                        Text(String(format: "Location: %.4f, %.4f", lat, lon))
+                                            .font(.caption2)
+                                            .foregroundColor(.gray)
+                                    } else {
+                                        Text("Location: Unknown")
+                                            .font(.caption2)
+                                            .foregroundColor(.gray)
+                                    }
                                 }
+                                Spacer()
+                            }
+                            .onTapGesture {
+                                selectedRecording = recording
+                            }
+                            .onLongPressGesture {
+                                recordingToDelete = recording
+                                showDeleteConfirmation = true
                             }
                         }
                     }
@@ -125,7 +132,6 @@ struct HistoryView: View {
                 }
             }
             .padding()
-
             .sheet(item: $selectedRecording) { recording in
                 NavigationStack {
                     if let lat = recording.latitude, let lon = recording.longitude {
@@ -141,9 +147,19 @@ struct HistoryView: View {
                     }
                 }
             }
+            .alert("Delete Recording?", isPresented: $showDeleteConfirmation, presenting: recordingToDelete) { item in
+                Button("Delete", role: .destructive) {
+                    modelContext.delete(item)
+                }
+                Button("Cancel", role: .cancel) { }
+            } message: { _ in
+                Text("Are you sure you want to delete this recording?")
+            }
+
         }
     }
 }
+
 
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)

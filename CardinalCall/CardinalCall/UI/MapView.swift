@@ -51,7 +51,7 @@ struct MapView: View {
                 }
             }
             .mapStyle(.standard)
-            .navigationTitle("Recording Map")
+            .navigationTitle("History Map")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
