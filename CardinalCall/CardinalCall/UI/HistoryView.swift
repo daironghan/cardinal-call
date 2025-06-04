@@ -118,6 +118,7 @@ struct HistoryView: View {
                                 }
                                 Spacer()
                             }
+                            .contentShape(Rectangle())
                             .onTapGesture {
                                 selectedRecording = recording
                             }
