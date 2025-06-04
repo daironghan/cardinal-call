@@ -36,9 +36,10 @@ struct BirdInfoView: View {
                 
                 Text(bird.description)
                     .font(.body)
-
+                
                 if let url = URL(string: bird.info) {
                     Button(action: {
+                        // To prevent crashing in preview
                         if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == nil {
                             UIApplication.shared.open(url)
                         } else {
