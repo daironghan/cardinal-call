@@ -25,6 +25,10 @@ struct ContentView: View {
                 .tabItem {
                     Label("History", systemImage: "clock.fill")
                 }
+            MapView()
+                .tabItem {
+                    Label("Map", systemImage: "map.fill")
+                }
         }
     }
 }
@@ -36,8 +40,8 @@ struct ContentView: View {
 
     let context = container.mainContext
     let mock = Recording(birdID: "1", birdName: "Mock Bird A")
-    mock.latitude = 37.4
-    mock.longitude = -128.1
+    mock.latitude = 37.5
+    mock.longitude = -122.1
     
     let mock2 = Recording(birdID: "1", birdName: "Mock Bird Cat")
     mock2.latitude = 37.4
