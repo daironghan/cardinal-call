@@ -39,26 +39,23 @@ struct ContentView: View {
     let container = try! ModelContainer(for: Recording.self, configurations: config)
 
     let context = container.mainContext
-    let mock1 = Recording(birdID: "1", birdName: "Hello World")
-    mock1.latitude = 37.4275
-    mock1.longitude = -122.1697
+    let birds: [(id: String, name: String, lat: Double, lon: Double)] = [
+        ("1", "American Robin", 37.4275, -122.1697),
+        ("2", "Chestnut-backed Chickadee", 37.45, -122.18),
+        ("3", "White-crowned Sparrow", 37.44, -122.16),
+        ("4", "California Scrub Jay", 37.443, -122.165),
+        ("5", "Oak Titmouse", 37.435, -122.162),
+        ("6", "Acorn Woodpecker", 37.438, -122.17),
+        ("7", "Dark-eyed Junco", 37.431, -122.175),
+        ("8", "California Towhee", 37.429, -122.168)
+    ]
 
-    let mock2 = Recording(birdID: "2", birdName: "DDD")
-    mock2.latitude = 37.45
-    mock2.longitude = -122.18
-
-    let mock3 = Recording(birdID: "3", birdName: "CCC")
-    mock3.latitude = 37.44
-    mock3.longitude = -122.16
-    
-    let mock4 = Recording(birdID: "2", birdName: "DDD")
-    mock4.latitude = 37.44
-    mock4.longitude = -122.161
-
-    context.insert(mock1)
-    context.insert(mock2)
-    context.insert(mock3)
-    context.insert(mock4)
+    for bird in birds {
+        let recording = Recording(birdID: bird.id, birdName: bird.name)
+        recording.latitude = bird.lat
+        recording.longitude = bird.lon
+        context.insert(recording)
+    }
 
     return ContentView()
         .modelContainer(container)
