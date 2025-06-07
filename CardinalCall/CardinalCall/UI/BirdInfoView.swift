@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct BirdInfoView: View {
+    // MARK: Data in
     let bird: Bird
     
+    // MARK: Body
     var body: some View {
         VStack(spacing: 20) {
             if !bird.imageName.isEmpty, let image = UIImage(named: bird.imageName) {
@@ -53,7 +55,6 @@ struct BirdInfoView: View {
                     }
                 }
             }
-
             Spacer()
         }
         .padding(40)

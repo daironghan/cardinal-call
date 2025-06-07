@@ -8,11 +8,12 @@ import SwiftUI
 import MapKit
 
 struct RecordingMapView: View {
+    // MARK: Data In
     let coordinate: CLLocationCoordinate2D
     let birdName: String
-
     @Environment(\.dismiss) private var dismiss
-
+    
+    // MARK: Body
     var body: some View {
         NavigationStack {
             Map(initialPosition: .region(

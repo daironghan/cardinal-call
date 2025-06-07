@@ -10,14 +10,16 @@ import MapKit
 import SwiftData
 
 struct MapView: View {
+    // MARK: Data In
     @Query(sort: \Recording.timestamp, order: .reverse) var recordings: [Recording]
     
+    // MARK: Data Owned By Me
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 37.4275, longitude: -122.1697),
         span: MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
     )
 
-    /// Cache of unique colors per species
+    // Cache of unique colors per species
     private var speciesColors: [String: Color] {
         var colorMap: [String: Color] = [:]
         let baseColors: [Color] = [.red, .blue, .green, .orange, .purple, .pink, .brown, .teal, .mint, .indigo, .cyan]
@@ -29,7 +31,8 @@ struct MapView: View {
         }
         return colorMap
     }
-
+    
+    // MARK: Body
     var body: some View {
         NavigationStack {
             VStack(spacing: 12) {
@@ -44,16 +47,16 @@ struct MapView: View {
 
                 // Legend View
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
+                    HStack() {
                         ForEach(Array(speciesColors.keys.sorted()), id: \.self) { species in
-                            HStack(spacing: 6) {
+                            HStack() {
                                 Circle()
                                     .fill(speciesColors[species]!)
                                     .frame(width: 12, height: 12)
                                 Text(species)
                                     .font(.caption)
                             }
-                            .padding(.horizontal, 8)
+                            .padding(.horizontal)
                             .padding(.vertical, 4)
                             .background(Color(.systemGray6))
                             .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -61,7 +64,6 @@ struct MapView: View {
                     }
                     .padding(.horizontal)
                 }
-
                 Spacer()
             }
             .navigationTitle("History Map")
@@ -80,8 +82,6 @@ private extension Recording {
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
 }
-
-
 
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)

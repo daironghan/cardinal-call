@@ -9,9 +9,11 @@ import SwiftData
 import MapKit
 
 struct HistoryView: View {
+    // MARK: Data In
     @Query(sort: \Recording.timestamp, order: .reverse) var recordings: [Recording]
     @Environment(\.modelContext) private var modelContext
-
+    
+    // MARK: Data I Own
     @State private var selectedRecording: Recording?
     @State private var searchText: String = ""
     @State private var startDate: Date = Calendar.current.date(byAdding: .month, value: -1, to: Date()) ?? Date()
@@ -19,7 +21,6 @@ struct HistoryView: View {
     @State private var showDatePicker: Bool = false
     @State private var recordingToDelete: Recording?
     @State private var showDeleteConfirmation: Bool = false
-//    @State private var longPressedRecording: Recording?
 
     var filteredRecordings: [Recording] {
         guard startDate <= endDate else { return [] }
@@ -32,7 +33,8 @@ struct HistoryView: View {
             return matchesName && matchesDate
         }
     }
-
+    
+    // MARK: Body
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 12) {
@@ -61,13 +63,10 @@ struct HistoryView: View {
                             .padding(8)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
-                    .accessibilityLabel("Filter by date")
                 }
 
                 if showDatePicker {
                     HStack {
-//                        DatePicker("From", selection: $startDate, displayedComponents: .date)
-//                        DatePicker("To", selection: $endDate, in: startDate..., displayedComponents: .date)
                         DatePicker("From", selection: Binding(
                             get: { startDate },
                             set: { newValue in
@@ -120,10 +119,6 @@ struct HistoryView: View {
                                 Spacer()
                             }
                             .contentShape(Rectangle())
-//                            .background(
-//                                RoundedRectangle(cornerRadius: 8)
-//                                    .fill(longPressedRecording?.id == recording.id ? Color.gray.opacity(0.2) : Color.clear)
-//                            )
                             .onTapGesture {
                                 selectedRecording = recording
                             }
@@ -135,14 +130,6 @@ struct HistoryView: View {
                                     Label("Delete", systemImage: "trash")
                                 }
                             }
-//                            .onLongPressGesture {
-//                                longPressedRecording = recording
-//                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-//                                    recordingToDelete = recording
-//                                    showDeleteConfirmation = true
-//                                    longPressedRecording = nil
-//                                }
-//                            }
                         }
                     }
                     .listStyle(.plain)

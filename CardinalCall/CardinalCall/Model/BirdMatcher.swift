@@ -73,14 +73,10 @@ class BirdMatcher: NSObject, ObservableObject, SHSessionDelegate {
         }
     }
 
-
-
     func stopListening() {
-        print("Stop Listening 1")
         audioEngine.inputNode.removeTap(onBus: 0)
         audioEngine.stop()
         try? AVAudioSession.sharedInstance().setActive(false)
-        print("Stopped listening.")
     }
 
     func session(_ session: SHSession, didFind match: SHMatch) {

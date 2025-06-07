@@ -7,19 +7,18 @@
 import SwiftUI
 
 struct ExploreView: View {
+    // MARK: Data In
     let birds = BirdDatabase.shared
-    @Namespace private var imageNamespace
-
+    
+    // MARK: Data Shared With Me
     @AppStorage("pinnedBirdIDs") private var pinnedBirdIDsRaw: String = ""
 
+    // MARK: Data I Own
+    @Namespace private var imageNamespace
     private var pinnedBirdIDs: Set<String> {
         Set(pinnedBirdIDsRaw.split(separator: ",").map { String($0) })
     }
-
-    private func updatePinnedBirdIDs(_ newSet: Set<String>) {
-        pinnedBirdIDsRaw = newSet.joined(separator: ",")
-    }
-
+    
     var sortedBirds: [Bird] {
         birds.allBirds.sorted {
             let aPinned = pinnedBirdIDs.contains($0.id)
@@ -31,7 +30,8 @@ struct ExploreView: View {
             }
         }
     }
-
+    
+    // MARK: Body
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
@@ -55,7 +55,6 @@ struct ExploreView: View {
                                     .foregroundColor(.accentColor)
                             }
                             .buttonStyle(.plain)
-                            .accessibilityLabel(pinnedBirdIDs.contains(bird.id) ? "Unpin \(bird.name)" : "Pin \(bird.name)")
                             
                             NavigationLink(destination: BirdInfoView(bird: bird)) {
                                 HStack {
@@ -72,15 +71,12 @@ struct ExploreView: View {
                                             .overlay(Text("No Image").font(.caption2).foregroundColor(.gray))
                                             .clipShape(RoundedRectangle(cornerRadius: 8))
                                     }
-
                                     Text(bird.name)
                                         .font(.headline)
                                 }
                             }
-
                             Spacer()
                         }
-
                     }
                 }
                 .listStyle(.plain)
@@ -88,6 +84,10 @@ struct ExploreView: View {
             }
             .padding()
         }
+    }
+    
+    private func updatePinnedBirdIDs(_ newSet: Set<String>) {
+        pinnedBirdIDsRaw = newSet.joined(separator: ",")
     }
 
     private func togglePin(for bird: Bird) {
@@ -100,10 +100,6 @@ struct ExploreView: View {
         updatePinnedBirdIDs(newSet)
     }
 }
-
-
-
-
 
 #Preview {
     ExploreView()
