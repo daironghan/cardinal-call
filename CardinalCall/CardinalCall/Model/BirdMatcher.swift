@@ -2,9 +2,8 @@
 //  BirdMatcher.swift
 //  CardinalCall
 //
-//  Created by 韓岱融 on 2025/5/23.
-//
-
+//  Created by ChatGPT on 2025/5/23.
+//  Prompt: "I have a custom BirdCalls.shazamcatalog. How do I make the app to record and match to it?"
 import Foundation
 import AVFoundation
 import ShazamKit

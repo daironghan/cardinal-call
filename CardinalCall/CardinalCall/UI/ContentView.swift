@@ -4,7 +4,6 @@
 //
 //  Created by 韓岱融 on 2025/5/23.
 //
-
 import SwiftUI
 import SwiftData
 
@@ -33,7 +32,8 @@ struct ContentView: View {
     }
 }
 
-
+//  Created by ChatGPT on 2025/6/3.
+//  Prompt: "Create a preview for this view using the format from the Birds.json file"
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Recording.self, configurations: config)

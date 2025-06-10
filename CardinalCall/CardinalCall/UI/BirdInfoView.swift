@@ -4,7 +4,6 @@
 //
 //  Created by 韓岱融 on 2025/5/30.
 //
-
 import SwiftUI
 
 struct BirdInfoView: View {

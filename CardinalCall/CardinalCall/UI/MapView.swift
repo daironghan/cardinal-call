@@ -4,7 +4,6 @@
 //
 //  Created by 韓岱融 on 2025/6/3.
 //
-
 import SwiftUI
 import MapKit
 import SwiftData
@@ -83,6 +82,8 @@ private extension Recording {
     }
 }
 
+//  Created by ChatGPT on 2025/6/3.
+//  Prompt: "Create a preview for this view using the format from the Birds.json file"
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Recording.self, configurations: config)
