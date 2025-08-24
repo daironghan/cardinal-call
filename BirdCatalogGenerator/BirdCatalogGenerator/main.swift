@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 import ShazamKit
 
-let birdCallsDir = URL(fileURLWithPath: "/Users/dairong/Documents/Stanford/2025Spring/CS193P/final-project-daironghan/BirdCalls", isDirectory: true)
+let birdCallsDir = URL(fileURLWithPath: "Your_Bird_Call_Audio_Files_Directory_Here", isDirectory: true)
 let outputCatalogURL = birdCallsDir.appendingPathComponent("BirdCalls.shazamcatalog")
 
 func loadAudioBuffer(from url: URL) throws -> AVAudioPCMBuffer {
