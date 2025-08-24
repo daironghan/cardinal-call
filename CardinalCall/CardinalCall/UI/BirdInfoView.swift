@@ -2,7 +2,7 @@
 //  BirdInfoView.swift
 //  CardinalCall
 //
-//  Created by 韓岱融 on 2025/5/30.
+//  Created by dairong on 2025/5/30.
 //
 import SwiftUI
 

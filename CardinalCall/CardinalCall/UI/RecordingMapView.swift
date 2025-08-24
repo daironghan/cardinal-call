@@ -2,7 +2,7 @@
 //  RecordingMapView.swift
 //  CardinalCall
 //
-//  Created by 韓岱融 on 2025/6/2.
+//  Created by dairong on 2025/6/2.
 //
 import SwiftUI
 import MapKit
